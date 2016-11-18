@@ -6,7 +6,7 @@ namespace TagCloud
 {
     class Tag
     {
-        public Tag() { }                        // vi skal have en tom constructor
+        private Tag() { }                        // vi skal have en tom constructor, må dog gerne være privat
 
         public Tag(string tagName)
         {

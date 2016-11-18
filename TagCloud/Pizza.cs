@@ -5,7 +5,6 @@ namespace TagCloud
     class Pizza
     {
         private Pizza() { } // den tomme ctor må gerne være private, men de skal være der hvis der er andre
-
         public Pizza(string title, params Tag[] tags)
         {
             Title = title;

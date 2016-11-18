@@ -69,7 +69,7 @@ namespace TagCloud
                         Pizzas = g.ToList(),
                     })
                     .OrderByDescending(g => g.Count);
-            foreach (var v in tagCount)
+            foreach (var v  in tagCount)
             {
                 Console.WriteLine($"  {v.Name} er brugt {v.Count} gange i følgende pizzaer");
                 Console.WriteLine("  " + string.Join(",", v.Pizzas.Select(e => e.Title)));
