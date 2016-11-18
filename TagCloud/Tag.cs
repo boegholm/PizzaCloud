@@ -1,23 +1,25 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TagCloud
 {
     class Tag
     {
+        private string _name;
+
         private Tag() { }                        // vi skal have en tom constructor, må dog gerne være privat
 
-        public Tag(string tagName)
+        public Tag(string name)
         {
-            TagName = tagName.ToLower();
+            Name = name.ToLower();
         }
-        
-        public int TagId { get; set; }          // unik identifikation af tag
 
-        [Index(IsUnique = true)]                // vi vil kun have et tag!
-        [StringLength(30)]                      // for at kunne bruge ovenstående constraint må det max være 450 tegn
-        public string TagName { get; set; }     // brug ikke dette som key! -- hvad hvis jeg vil ændre værdien?
+        public int Id { get; set; }          // unik identifikation af tag
+
+        public string Name // brug ikke dette som key! -- hvad hvis jeg vil ændre værdien?
+        {
+            get { return _name; }
+            set { _name = value.ToLower(); }
+        }
         public virtual ICollection<Pizza> Pizzas { get; set; }
     }
 }
