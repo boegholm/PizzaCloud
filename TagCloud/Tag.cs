@@ -10,7 +10,7 @@ namespace TagCloud
 
         public Tag(string name)
         {
-            Name = name.ToLower();
+            Name = name;
         }
 
         public int Id { get; set; }          // unik identifikation af tag
