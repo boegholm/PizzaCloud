@@ -15,21 +15,21 @@ namespace TagCloud
 
             using (var ctx = new PizzaContext())
             {
-
                 //ctx.Database.Log = Console.WriteLine; // Du kan se den generede SQL med denne linie
 
+                // vis tag-popularitet
                 PrintIngredients(ctx);
-
                 Prompt();
 
+                // i stedet for query-tilgang, brug method-chaining
                 PrintIngredientsMethodChaining(ctx);
-
                 Prompt();
 
+                // lidt mere information
                 IncludePizzasPrIngredient(ctx);
-
                 Prompt();
 
+                // find pizzaer ud fra tags
                 PotentialPizzas(ctx); // nomnom
             }
             Prompt("Tryk en tast for at afslutte");
@@ -57,7 +57,7 @@ namespace TagCloud
         {
             // vi vil gemme pizzaerne i vores grouping
             Console.WriteLine("Lidt mere information:");
-            var tagCount2 =
+            var tagCount =
                 (from pizza in ctx.Pizzas
                     from tag in pizza.Tags
                     group pizza by tag.TagName
@@ -69,7 +69,7 @@ namespace TagCloud
                         Pizzas = g.ToList(),
                     })
                     .OrderByDescending(g => g.Count);
-            foreach (var v in tagCount2)
+            foreach (var v in tagCount)
             {
                 Console.WriteLine($"  {v.Name} er brugt {v.Count} gange i følgende pizzaer");
                 Console.WriteLine("  " + string.Join(",", v.Pizzas.Select(e => e.Title)));
@@ -79,21 +79,21 @@ namespace TagCloud
 
         private static void PrintIngredientsMethodChaining(PizzaContext ctx)
         {
-                // man kan gøre det samme med method-chaining -- resharper kan ofte convertere
-                var tagCount =
-                    (ctx.Pizzas.SelectMany(pizza => pizza.Tags, (pizza, tag) => new {pizza, tag})
-                        .GroupBy(t => t.tag.TagName, t => t.tag)
-                        .Select(g => new
-                        {
-                            Name = g.Key,
-                            Count = g.Count(),
-                        }))
-                        .OrderByDescending(g => g.Count);
-                Console.WriteLine("List over ingrediens-popularitet: (tag-cloud?) -- method-chaining");
-                foreach (var count in tagCount)
-                {
-                    Console.WriteLine($"  {count.Name} er brugt {count.Count} gange!");
-                }
+            // man kan gøre det samme med method-chaining -- resharper kan ofte convertere
+            var tagCount =
+                (ctx.Pizzas.SelectMany(pizza => pizza.Tags, (pizza, tag) => new {pizza, tag})
+                    .GroupBy(t => t.tag.TagName, t => t.tag)
+                    .Select(g => new
+                    {
+                        Name = g.Key,
+                        Count = g.Count(),
+                    }))
+                    .OrderByDescending(g => g.Count);
+            Console.WriteLine("List over ingrediens-popularitet: (tag-cloud?) -- method-chaining");
+            foreach (var count in tagCount)
+            {
+                Console.WriteLine($"  {count.Name} er brugt {count.Count} gange!");
+            }
         }
 
         private static void PrintIngredients(PizzaContext ctx)
