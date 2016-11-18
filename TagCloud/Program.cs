@@ -44,8 +44,8 @@ namespace TagCloud
             Tag nomnomTag = ctx.Tags.ToList()[r.Next(count)];
 
 
-            var nomnom = ctx.Pizzas.Where(p => p.Tags.Any(t => t.TagId == nomnomTag.TagId));
-            Console.WriteLine($"Pizzaer med {nomnomTag.TagName}");
+            var nomnom = ctx.Pizzas.Where(p => p.Tags.Any(t => t.Id == nomnomTag.Id));
+            Console.WriteLine($"Pizzaer med {nomnomTag.Name}");
             foreach (Pizza pizza in nomnom)
             {
                 Console.WriteLine($"  {pizza.Title}");
@@ -60,7 +60,7 @@ namespace TagCloud
             var tagCount =
                 (from pizza in ctx.Pizzas
                     from tag in pizza.Tags
-                    group pizza by tag.TagName
+                    group pizza by tag.Name
                     into g
                     select new
                     {
@@ -82,7 +82,7 @@ namespace TagCloud
             // man kan gøre det samme med method-chaining -- resharper kan ofte convertere
             var tagCount =
                 (ctx.Pizzas.SelectMany(pizza => pizza.Tags, (pizza, tag) => new {pizza, tag})
-                    .GroupBy(t => t.tag.TagName, t => t.tag)
+                    .GroupBy(t => t.tag.Name, t => t.tag)
                     .Select(g => new
                     {
                         Name = g.Key,
@@ -101,7 +101,7 @@ namespace TagCloud
             var tagCount =
                 (from pizza in ctx.Pizzas
                     from tag in pizza.Tags
-                    group tag by tag.TagName
+                    group tag by tag.Name
                     into g
                     select new
                     {
