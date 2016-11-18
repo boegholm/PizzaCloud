@@ -6,7 +6,7 @@ namespace TagCloud
     {
         private string _name;
 
-        private Tag() { }                        // vi skal have en tom constructor, må dog gerne være privat
+        private Tag() { }                    // vi skal have en tom constructor, må dog gerne være privat
 
         public Tag(string name)
         {
@@ -15,7 +15,7 @@ namespace TagCloud
 
         public int Id { get; set; }          // unik identifikation af tag
 
-        public string Name // brug ikke dette som key! -- hvad hvis jeg vil ændre værdien?
+        public string Name                   // brug ikke dette som key! -- hvad hvis jeg vil ændre værdien?
         {
             get { return _name; }
             set { _name = value?.ToLower(); }

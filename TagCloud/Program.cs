@@ -21,8 +21,8 @@ namespace TagCloud
                 PrintIngredients(ctx);
                 Prompt();
 
-                // i stedet for query-tilgang, brug method-chaining
-                PrintIngredientsMethodChaining(ctx);
+                // i stedet for query-tilgang, brug extension-methods
+                PrintIngredientsExtensionMethodSyntax(ctx);
                 Prompt();
 
                 // lidt mere information
@@ -77,9 +77,9 @@ namespace TagCloud
             }
         }
 
-        private static void PrintIngredientsMethodChaining(PizzaContext ctx)
+        private static void PrintIngredientsExtensionMethodSyntax(PizzaContext ctx)
         {
-            // man kan gøre det samme med method-chaining -- resharper kan ofte convertere
+            // man kan gøre det samme med extension methods -- resharper kan ofte konvertere
             var tagCount =
                 (ctx.Pizzas.SelectMany(pizza => pizza.Tags, (pizza, tag) => new {pizza, tag})
                     .GroupBy(t => t.tag.Name, t => t.tag)
@@ -89,7 +89,7 @@ namespace TagCloud
                         Count = g.Count(),
                     }))
                     .OrderByDescending(g => g.Count);
-            Console.WriteLine("List over ingrediens-popularitet: (tag-cloud?) -- method-chaining");
+            Console.WriteLine("List over ingrediens-popularitet: (tag-cloud?) -- extension methods");
             foreach (var count in tagCount)
             {
                 Console.WriteLine($"  {count.Name} er brugt {count.Count} gange!");
