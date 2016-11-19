@@ -16,7 +16,8 @@ namespace TagCloud
         public int Id { get; set; }          // unik identifikation af tag
 
         /*
-         * nedenstående er flyttet til PizzaContext ved brug af Fluent-Api -- så afkobler vi helt Tag fra EntityFramework!
+         * nedenstående er attributter flyttet til PizzaContext ved brug af Fluent-Api 
+         * -- så afkobler vi helt Tag fra EntityFramework!
          *  - det findes i PizzaContext:
          *    protected override void OnModelCreating(DbModelBuilder modelBuilder)
          *    
