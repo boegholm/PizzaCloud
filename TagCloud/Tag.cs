@@ -15,6 +15,14 @@ namespace TagCloud
 
         public int Id { get; set; }          // unik identifikation af tag
 
+        /*
+         * nedenstående er flyttet til PizzaContext ved brug af Fluent-Api -- så afkobler vi helt Tag fra EntityFramework!
+         *  - det findes i PizzaContext:
+         *    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+         *    
+         */
+        //        [Index(IsUnique = true)]                // vi vil kun have et tag!
+        //        [StringLength(30)]                      // for at kunne bruge ovenstående constraint må det max være 450 tegn
         public string Name                   // brug ikke dette som key! -- hvad hvis jeg vil ændre værdien?
         {
             get { return _name; }
